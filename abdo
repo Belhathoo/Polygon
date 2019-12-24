@@ -1,0 +1,20 @@
+double angle_sommet( coordonne B , coordonne A , coordonne C  )
+{
+  double angle;
+  coordonne AB;
+  coordonne AC;
+  float dAB;
+  float dAC;
+  float produit_sca;
+  AB.x = B.x-A.x;
+  AB.y = B.y-A.y;
+  dAB = sqrt( pow( AB.x , 2 ) + pow( AB.y , 2 ) );
+  AC.x = C.x-A.x;
+  AC.y = C.y-A.y;
+  dAC = sqrt( pow( AC.x , 2 ) + pow( AC.y , 2 ) );
+  produit_sca =( AB.x*AC.x )+( AB.y*AC.y );
+  angle = acos( produit_sca / ( dAB*dAC ) );
+  return( angle*( 180/PI ) );
+}
+
+
