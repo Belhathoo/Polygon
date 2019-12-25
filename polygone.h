@@ -55,6 +55,9 @@ int    check_caree(t_polygone *polygone);
 
 char    check_forme_quadrilatere(t_polygone *polygone);
 
+int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3);
+
+
 float   surface(t_polygone* polygone);
 t_point     *ft_points(int size, t_lst *l);
 int    check_regulier(t_polygone *polygone);

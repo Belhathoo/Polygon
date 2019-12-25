@@ -16,7 +16,9 @@ void    calcul_tendon(t_polygone *polygone, t_lst *l)
 
 int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3)
 {
+	
 	float pr_sca;
+//	float AB, AC, BC;
 	t_point AB;
 	t_point CD;
 
@@ -26,6 +28,13 @@ int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3)
 	CD.y = p3.y - p2.y;
 
 	pr_sca = (AB.x * CD.x) + (AB.y * CD.y);
+
+/*(void)p3;
+	AB = sqrt(pow((p1.x - p0.x), 2)+ pow((p1.y - p2.y), 2));
+	AC = sqrt(pow((p2.x - p2.x), 2)+ pow((p0.y - p0.y), 2));
+	BC = sqrt(pow((p2.x - p1.x), 2)+ pow((p2.y - p1.y), 2));
+	pr_sca = 1 / (2 * (AB*AB +AC*AC - BC*BC));*/
+
 	return (pr_sca);
 
 
@@ -97,65 +106,6 @@ int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3)
    return(0);
    }
    */
-t_point     *ft_points(int size, t_lst *l)
-{
-
-	t_lst *head;
-	t_point *tab;
-	int i = 0;
-	head = l; 
-	tab = (t_point *)malloc(sizeof(t_point) * size);
-	while(head != NULL)
-	{
-		tab[i].x = head->data.x ;
-		tab[i].y = head->data.y; 
-		i++;
-		head = head->next;
-	}
-	return (tab);
-}
-
-
-char   check_forme_quadrilatere(t_polygone *polygone)
-{
-	t_point *pnts;
-	float ps;
-	float ps1;
-	float ps_td;
-
-	pnts = polygone->pnts;
-	ps = abs(produit_scalaire(pnts[0], pnts[1], pnts[2], pnts[3]));
-	ps1 = abs(produit_scalaire(pnts[1], pnts[2], pnts[0], pnts[3]));
-	ps_td = abs(produit_scalaire(pnts[0], pnts[2], pnts[1], pnts[3]));
-
-	if ((ps == polygone->segments[0] * polygone->segments[2])
-			&& (ps1 == polygone->segments[1] * polygone->segments[3]))
-	{
-		if ((polygone->segments[0] == polygone->segments[2]) 
-				&& (polygone->segments[1] == polygone->segments[3]))
-		{
-			if (ps_td == 0)
-			{    
-				if(polygone->tendon[0] == polygone->tendon[1])
-					return('c'); 
-				else
-					return ('l');
-			}
-			else if (polygone->tendon[0] == polygone->tendon[1])
-				return ('r');
-			else
-				return('p');
-		}
-		else
-			return ('x');
-	}
-	else if ((ps == polygone->segments[0] * polygone->segments[2])
-			|| (ps1 == polygone->segments[1] * polygone->segments[3]))
-		return ('t');
-	else
-		return ('x');
-}
-
 
 float   surface(t_polygone* polygone)
 {
@@ -188,7 +138,7 @@ void get_angle(t_polygone *polygone)
      polygone->angles = angle;
 	while (i < polygone->size - 1)
 	{
-		pr_sca = produit_scalaire(tab[i+1], tab[i+2], tab[i+ 1], tab[i]);
+		pr_sca = produit_scalaire(tab[i+1], tab[i], tab[i+ 1], tab[i + 2]);
 		angle[i] = acos(pr_sca /(t[i] * t[i + 1]));
 
 		i++;

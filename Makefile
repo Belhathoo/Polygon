@@ -18,13 +18,9 @@ SRCS =  read.c\
 		init.c\
 		main.c\
 		quadrilatere.c\
+		ft_quadri.c
 
-OBJ = read.o\
-	  triangles.o\
-	   calcul.o\
-	   init.o\
-	   main.o\
-	   quadrilatere.o\
+OBJ = $(SRCS:.c=.o)
 
 LIBFT = -L libft -lft
 

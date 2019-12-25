@@ -31,19 +31,19 @@ int		main(int argc, char **argv)
 	 lst = tt;
 	 while(lst)
 	{
-		printf("%.2f\t%.2f\n\n", lst->data.x, lst->data.y);
+		printf("x.%.2f\ty.%.2f\n", lst->data.x, lst->data.y);
 		lst = lst->next;
 	}
 
 	while (i < polygone->size)
 	{
-		printf("%f\n", polygone->segments[i]);
+		printf("seg = %f\n", polygone->segments[i]);
 		i++;
 	}
 	lst = tt;
 	if(polygone->size == 3)
 		polygone->type = check_forme_triangle(polygone);
-	printf("\nPerimetre: %f\n", perimetre(polygone));
+	printf("Size: %d\nPerimetre: %f\n",polygone->size, perimetre(polygone));
 	if (polygone->size == 4)
 	{
 		calcul_tendon(polygone, lst);
