@@ -14,20 +14,20 @@ void    calcul_tendon(t_polygone *polygone, t_lst *l)
 
 }           
 
-int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3)
+int  produit_scalaire(t_point A, t_point B, t_point C)
 {
 	
 	float pr_sca;
 //	float AB, AC, BC;
 	t_point AB;
-	t_point CD;
+	t_point AC;
 
-	AB.x = p1.x - p0.x;
-	AB.y = p1.y - p0.y;
-	CD.x = p3.x - p2.x;
-	CD.y = p3.y - p2.y;
+	AB.x = B.x - A.x;
+	AB.y = B.y - A.y;
+	AC.x = C.x - A.x;
+	AC.y = C.y - A.y;
 
-	pr_sca = (AB.x * CD.x) + (AB.y * CD.y);
+	pr_sca = (AB.x * AC.x) + (AB.y * AC.y);
 
 /*(void)p3;
 	AB = sqrt(pow((p1.x - p0.x), 2)+ pow((p1.y - p2.y), 2));
@@ -136,16 +136,17 @@ void get_angle(t_polygone *polygone)
 
     angle = (float *)malloc(sizeof(float) * polygone->size);
      polygone->angles = angle;
-	while (i < polygone->size - 1)
+	while (i < polygone->size - 2)
 	{
-		pr_sca = produit_scalaire(tab[i+1], tab[i], tab[i+ 1], tab[i + 2]);
+		pr_sca = produit_scalaire(tab[i+1], tab[i+2], tab[i]); 
+        //B=BCA   C=CDB   D=DAC   A=ABD
 		angle[i] = acos(pr_sca /(t[i] * t[i + 1]));
 
 		i++;
 	}
-	pr_sca = produit_scalaire(tab[i], tab[0], tab[i], tab[i-1]);
+	pr_sca = produit_scalaire(tab[i], tab[0], tab[i-1]);
 	angle[i] = acos(pr_sca /(t[i] * t[i - 1]));
-	pr_sca = produit_scalaire(tab[0], tab[1], tab[0], tab[i]);
+	pr_sca = produit_scalaire(tab[0], tab[1], tab[i]);
 	angle[i + 1] = acos(pr_sca /(t[i] * t[0]));
     
 }

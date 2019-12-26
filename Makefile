@@ -18,7 +18,9 @@ SRCS =  read.c\
 		init.c\
 		main.c\
 		quadrilatere.c\
-		ft_quadri.c
+		ft_quadri.c\
+		sort.c\
+		calc_angle.c
 
 OBJ = $(SRCS:.c=.o)
 

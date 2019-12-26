@@ -19,7 +19,7 @@ t_point     *ft_points(int size, t_lst *l)
 }
 
 
-char   check_forme_quadrilatere(t_polygone *polygone)
+/*char   check_forme_quadrilatere(t_polygone *polygone)
 {
 	t_point *pnts;
 	float ps;
@@ -57,4 +57,4 @@ char   check_forme_quadrilatere(t_polygone *polygone)
 		return ('t');
 	else
 		return ('x');
-}
+}*/

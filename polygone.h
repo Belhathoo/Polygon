@@ -1,6 +1,8 @@
 # ifndef POLYGONE_H
 # define POLYGONE_H
+
 # include <stdlib.h>
+# include <string.h>
 # include "libft/libft.h"
 # include <sys/stat.h>
 # include <math.h>
@@ -21,6 +23,7 @@ typedef struct s_point
 typedef struct s_lst
 {
     t_point        data;
+    float           angle;
     struct s_lst *next;
 }                 t_lst;
 
@@ -55,12 +58,16 @@ int    check_caree(t_polygone *polygone);
 
 char    check_forme_quadrilatere(t_polygone *polygone);
 
-int  produit_scalaire(t_point p0, t_point p1, t_point p2, t_point p3);
+int  produit_scalaire(t_point p0, t_point p1, t_point p3);
 
 
 float   surface(t_polygone* polygone);
 t_point     *ft_points(int size, t_lst *l);
 int    check_regulier(t_polygone *polygone);
 void   get_angle(t_polygone *polygone);
+
+void    calcul_angle(t_lst *l);
+void    sort_list(t_lst *lst);  
+
 
 #endif
