@@ -26,7 +26,7 @@ int		main(int argc, char **argv)
 		tt = lst;
 		polygone->size = nbr_points(&lst);
 
-//		sort_list(tt);
+		//sort_list(tt);
 		polygone->pnts = ft_points(polygone->size, lst);
 		calcul_module(tt, polygone);
 		//calcul_angle(tt);
@@ -48,12 +48,12 @@ int		main(int argc, char **argv)
 		if(polygone->size == 3)
 			polygone->type = check_forme_triangle(polygone);
 		printf("Size: %d\nPerimetre: %f\n",polygone->size, perimetre(polygone));
-/*		if (polygone->size == 4)
+		if (polygone->size == 4)
 		{
 			calcul_tendon(polygone, lst);
 			polygone->type = check_forme_quadrilatere(polygone);
 			printf("type: %c\n", polygone->type);
-		}*/
+		}
 		printf("Surface: %f\n", surface(polygone));
 		printf("regulier : %d\n", check_regulier(polygone));
 		i = 0;

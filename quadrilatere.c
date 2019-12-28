@@ -14,27 +14,27 @@ void    calcul_tendon(t_polygone *polygone, t_lst *l)
 
 }           
 
-int  produit_scalaire(t_point A, t_point B, t_point C)
+int  produit_scalaire(t_point A, t_point B, t_point C, t_point D)
 {
 	
 	float pr_sca;
 //	float AB, AC, BC;
 	t_point AB;
-	t_point AC;
+	t_point CD;
 
 	AB.x = B.x - A.x;
 	AB.y = B.y - A.y;
-	AC.x = C.x - A.x;
-	AC.y = C.y - A.y;
+	CD.x = D.x - C.x;
+	CD.y = D.y - C.y;
 
-	pr_sca = (AB.x * AC.x) + (AB.y * AC.y);
-
-/*(void)p3;
-	AB = sqrt(pow((p1.x - p0.x), 2)+ pow((p1.y - p2.y), 2));
-	AC = sqrt(pow((p2.x - p2.x), 2)+ pow((p0.y - p0.y), 2));
-	BC = sqrt(pow((p2.x - p1.x), 2)+ pow((p2.y - p1.y), 2));
-	pr_sca = 1 / (2 * (AB*AB +AC*AC - BC*BC));*/
-
+	pr_sca = (AB.x * CD.x) + (AB.y * CD.y);
+/*
+(void)D;
+	AB = pow((B.x - A.x), 2)+ pow((B.y - A.y), 2);
+	AC = pow((C.x - A.x), 2)+ pow((C.y - A.y), 2);
+	BC = pow((C.x - B.x), 2)+ pow((C.y - B.y), 2);
+	pr_sca = (AB +AC - BC) / 2;
+*/
 	return (pr_sca);
 
 
@@ -123,33 +123,52 @@ float   surface(t_polygone* polygone)
 	return (fabs(s / 2));
 
 }
+float kachi(t_point A, t_point B, t_point C)
+{
+    float   AB, AC, BC;
+    float   k;
+
+	AB = powf((B.x - A.x), 2)+ powf((B.y - A.y), 2);
+	AC = powf((C.x - A.x), 2)+ powf((C.y - A.y), 2);
+	BC = powf((C.x - B.x), 2)+ powf((C.y - B.y), 2);
+
+    k = (AB + BC - AC) / (2 * sqrtf(AB) * sqrtf(BC));
+    return (k);
+}
 
 void get_angle(t_polygone *polygone)
 {
     float *angle;
-    float pr_sca;
+//    float pr_sca;
     int i = 0;
-    float *t;
+ //   float *t;
     t_point *tab;
+    float k;
+
     tab = polygone->pnts;
-    t = polygone->segments;
+//    t = polygone->segments;
 
     angle = (float *)malloc(sizeof(float) * polygone->size);
-     polygone->angles = angle;
+    polygone->angles = angle;
 	while (i < polygone->size - 2)
 	{
-		pr_sca = produit_scalaire(tab[i+1], tab[i+2], tab[i]); 
-        //B=BCA   C=CDB   D=DAC   A=ABD
-		angle[i] = acos(pr_sca /(t[i] * t[i + 1]));
+//		pr_sca = produit_scalaire(tab[i], tab[i+1], tab[i+1], tab[i+2]); 
+        //B=BABC   C=CBCD   D=DCDA   A=ADAB
+		k = kachi(tab[i], tab[i+1], tab[i+2]);
+        angle[i] = acos(k);
 
 		i++;
 	}
-	pr_sca = produit_scalaire(tab[i], tab[0], tab[i-1]);
-	angle[i] = acos(pr_sca /(t[i] * t[i - 1]));
-	pr_sca = produit_scalaire(tab[0], tab[1], tab[i]);
-	angle[i + 1] = acos(pr_sca /(t[i] * t[0]));
-    
+//	pr_sca = produit_scalaire(tab[0], tab[i], tab[i], tab[i-1]);
+//	angle[i] = acos(pr_sca /(t[i] * t[i - 1]));
+//	pr_sca = produit_scalaire(tab[i], tab[0], tab[0], tab[1]);
+//	angle[i + 1] = acos(pr_sca /(t[i] * t[0]));
+	k = kachi(tab[i], tab[i+1], tab[0]);
+    angle[i] = acos(k);
+	k = kachi(tab[i+1], tab[0], tab[1]);
+    angle[i + 1] = acos(k);
 }
+
 
 
 
