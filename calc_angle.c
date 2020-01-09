@@ -31,7 +31,7 @@ void calcul_angle(t_lst *l)
         list->angle = acos((list->data.x - center.x) / distance(center, list->data));
 
         if (list->data.y > center.y) {
-            list->angle = M_PI + M_PI - list->angle;
+            list->angle = PI + PI - list->angle;
         }
 	list = list->next;
     }

@@ -37,6 +37,7 @@ void     calcul_module(t_lst *l, t_polygone *polygone)
     }
     polygone->segments[i] = sqrt(pow((tt->data.x - l->data.x), 2) + \
         pow((tt->data.y - l->data.y), 2));
+    l = tt;
 }
 
 double         perimetre(t_polygone *polygone)

@@ -20,8 +20,8 @@ SRCS =  read.c\
 		quadrilatere.c\
 		ft_quadri.c\
 		sort.c\
-		calc_angle.c
-
+		calc_angle.c\
+		parser.c
 OBJ = $(SRCS:.c=.o)
 
 LIBFT = -L libft -lft

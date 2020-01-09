@@ -18,7 +18,6 @@ int  produit_scalaire(t_point A, t_point B, t_point C, t_point D)
 {
 	
 	float pr_sca;
-//	float AB, AC, BC;
 	t_point AB;
 	t_point CD;
 
@@ -28,84 +27,10 @@ int  produit_scalaire(t_point A, t_point B, t_point C, t_point D)
 	CD.y = D.y - C.y;
 
 	pr_sca = (AB.x * CD.x) + (AB.y * CD.y);
-/*
-(void)D;
-	AB = pow((B.x - A.x), 2)+ pow((B.y - A.y), 2);
-	AC = pow((C.x - A.x), 2)+ pow((C.y - A.y), 2);
-	BC = pow((C.x - B.x), 2)+ pow((C.y - B.y), 2);
-	pr_sca = (AB +AC - BC) / 2;
-*/
 	return (pr_sca);
 
 
 }
-
-/*
-
-   float   calcul_angle(t_point b, t_point a, t_point c)
-   {
-
-   float angle;
-   float dAB;
-   float dAC;
-   float pr_sca;
-   t_point AB;
-   t_point AC;
-
-   AC.x = c.x - a.x;
-   AC.y = c.y - a.y;
-   AB.x = b.x - a.x;
-   AB.y = b.y - a.y;
-
-   pr_sca = (AB.x * AC.x) + (AB.y * AB.y);
-   dAB = sqrt(pow(AB.x, 2) + pow(AB.x, 2));
-   dAC = sqrt(pow(AC.x, 2) + pow(AC.x, 2));
-   angle = acos(pr_sca / (dAB * dAC))
-   return(angle * (180 / PI))
-
-   }
-
-   int  check_angle(t_polygone *polygone)
-   {
-   float tab[3]; 
-   float tab1[3];
-
-   tab[0] = polygone->tendon[0];
-   tab[1] = polygone->segments[0];
-   tab[2] = polygone->segments[1];
-
-   tab1[0] = polygone->tendon[1];
-   tab1[1] = polygone->segments[2];
-   tab1[2] = polygone->segments[3];
-   if ((pi2mi(tab, tab[0]) == 1) && (pi2mi(tab1, tab1[0]) == 1))
-   return (1);
-
-   return (0);
-   }
-
-   int  check_rectangle(t_polygone *polygone)
-   {
-
-   int i;
-   int tmp;
-   i = 0;
-   tmp = 0;
-
-   if (check_angle(polygone) == 1)
-   {
-   for(i = 0; i < 2;i++)
-   {
-   if (polygone->segments[i] == polygone->segments[i+2])
-   {
-   tmp++;
-   }
-   }
-   if (tmp == 2)
-   return(1);
-   }
-   return(0);
-   }
-   */
 
 float   surface(t_polygone* polygone)
 {
@@ -139,40 +64,26 @@ float kachi(t_point A, t_point B, t_point C)
 void get_angle(t_polygone *polygone)
 {
     float *angle;
-//    float pr_sca;
     int i = 0;
- //   float *t;
     t_point *tab;
     float k;
 
     tab = polygone->pnts;
-//    t = polygone->segments;
 
     angle = (float *)malloc(sizeof(float) * polygone->size);
     polygone->angles = angle;
 	while (i < polygone->size - 2)
 	{
-//		pr_sca = produit_scalaire(tab[i], tab[i+1], tab[i+1], tab[i+2]); 
-        //B=BABC   C=CBCD   D=DCDA   A=ADAB
 		k = kachi(tab[i], tab[i+1], tab[i+2]);
         angle[i] = acos(k);
 
 		i++;
-	}
-//	pr_sca = produit_scalaire(tab[0], tab[i], tab[i], tab[i-1]);
-//	angle[i] = acos(pr_sca /(t[i] * t[i - 1]));
-//	pr_sca = produit_scalaire(tab[i], tab[0], tab[0], tab[1]);
-//	angle[i + 1] = acos(pr_sca /(t[i] * t[0]));
+    }
 	k = kachi(tab[i], tab[i+1], tab[0]);
     angle[i] = acos(k);
 	k = kachi(tab[i+1], tab[0], tab[1]);
     angle[i + 1] = acos(k);
 }
-
-
-
-
-
 
 
 int   check_regulier(t_polygone *polygone)

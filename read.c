@@ -54,6 +54,7 @@ t_lst          *read_file(char *av)
 			l = l->next;
 		}
    }
+   free(curr);
    l = tt;
    return (l);
 }
