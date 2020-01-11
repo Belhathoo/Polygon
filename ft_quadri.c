@@ -27,11 +27,13 @@ char   *check_forme_quadrilatere(t_polygone *polygone)
 	float ps_td;
 
 	pnts = polygone->pnts;
-	ps = abs(produit_scalaire(pnts[0], pnts[1], pnts[2], pnts[3])); // Les cotes face a face
+	ps = abs(produit_scalaire(pnts[0], pnts[1], pnts[2], pnts[3]));
 	ps1 = abs(produit_scalaire(pnts[1], pnts[2], pnts[0], pnts[3]));
-	ps_td = abs(produit_scalaire(pnts[0], pnts[2], pnts[1], pnts[3])); // Les tendons
-
-	
+	ps_td = abs(produit_scalaire(pnts[0], pnts[2], pnts[1], pnts[3]));
+	/************
+		ps et ps1 sont les produits scalaires des cote face a face
+		ps_td est le produit scalaire des tendons 
+											*****************/
 	if ((ps == polygone->segments[0] * polygone->segments[2])
 			&& (ps1 == polygone->segments[1] * polygone->segments[3]))
 	{
@@ -59,3 +61,4 @@ char   *check_forme_quadrilatere(t_polygone *polygone)
 	else
 		return ("XX");
 }
+

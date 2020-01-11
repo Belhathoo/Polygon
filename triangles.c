@@ -36,25 +36,24 @@ return (0);
     
 }
 
-
-
 int     type_triangle(t_polygone *polygone)
 {
-  double i;
-  double j;
-  double k;
+  int i;
+  int j;
+  int k;
 
-  i = polygone->segments[0];
-  j = polygone->segments[1];
-  k = polygone->segments[2];
-   if ((i == j && i != k) || (i == k && i != j) ||(i != j && j == k))
-      return (1);
+  i = (int)polygone->angles[0];
+  j = (int)polygone->angles[1];
+  k = (int)polygone->angles[2];
+
    if(i == j && j == k && k == i)
       return (2);
+   if ((i == j && i != k) || (i == k && i != j) ||(i != j && j == k))
+      return (1);
+
     
     return (0);
 }
-
 
 char      *check_forme_triangle(t_polygone *polygone)
 {

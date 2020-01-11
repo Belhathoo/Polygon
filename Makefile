@@ -24,7 +24,7 @@ OBJ = $(SRCS:.c=.o)
 
 LIBFT = -L libft -lft
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = 
 
 CC = gcc $(CFLAGS)
 

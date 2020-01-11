@@ -59,10 +59,10 @@ int		main(int argc, char **argv)
 	while (i < polygone->size)
 	{
 		if (i == polygone->size - 1)
-				printf("%c%c = %f\n", aux->name, tt->name , polygone->segments[i]);
+				printf("%c%c = %.2f\n", aux->name, tt->name , polygone->segments[i]);
 		else
 		{
-			printf("%c%c = %f\n", aux->name, aux->name + 1, polygone->segments[i]);
+			printf("%c%c = %.2f\n", aux->name, aux->name + 1, polygone->segments[i]);
 			aux = aux->next;
 		}
 		i++;

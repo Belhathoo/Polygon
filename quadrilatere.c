@@ -46,9 +46,9 @@ float   surface(t_polygone* polygone)
 	}
 	s = s + (pnts[i].x * pnts[0].y - pnts[0].x * pnts[i].y);
 	return (fabs(s / 2));
-
 }
-float kachi(t_point A, t_point B, t_point C)
+
+float	kachi(t_point A, t_point B, t_point C)
 {
     float   AB, AC, BC;
     float   k;
@@ -61,7 +61,7 @@ float kachi(t_point A, t_point B, t_point C)
     return (k);
 }
 
-void get_angle(t_polygone *polygone)
+void	get_angle(t_polygone *polygone)
 {
     float *angle;
     int i = 0;
@@ -95,11 +95,11 @@ int   check_regulier(t_polygone *polygone)
 	t = polygone->segments;
 	while (i < polygone->size - 1)
 	{
-		if (t[i] != t[i + 1]) 
+		if ((int)t[i] != (int)t[i + 1]) 
 			return(0);
 		i++;
 	}
-	if (t[i] != t[0])
+	if ((int)t[i] != (int)t[0])
 		return(0);
 	i = 0;
 
@@ -107,11 +107,11 @@ int   check_regulier(t_polygone *polygone)
 
 	while (i < polygone->size - 1)
 	{
-		if (angle[i] != angle[i + 1]) 
+		if ((int)angle[i] != (int)angle[i + 1]) 
 			return (0);
 		i++;
 	}
-	if (angle[i] != angle[0])
+	if ((int)angle[i] != (int)angle[0])
 		return(0);
 	return (1);   
 }
