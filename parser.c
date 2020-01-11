@@ -33,7 +33,7 @@ int	parser(t_lst **p, char *file, int i)
 	t_lst	*tmp;
 	t_lst	*tt;
 	char	**split;
-	char	*line;
+	char	*line = NULL;
 	int	len;
 	int	fd;
 

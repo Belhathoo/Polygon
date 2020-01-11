@@ -39,7 +39,7 @@ float   surface(t_polygone* polygone)
 	t_point *pnts;
 
 	pnts = polygone->pnts;
-	while(i < polygone->size)
+	while(i < polygone->size - 1)
 	{
 		s = s + (pnts[i].x * pnts[i+1].y - pnts[i+1].x * pnts[i].y);
 		i++; 

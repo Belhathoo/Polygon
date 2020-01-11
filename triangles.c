@@ -56,24 +56,23 @@ int     type_triangle(t_polygone *polygone)
 }
 
 
-int       check_forme_triangle(t_polygone *polygone)
+char      *check_forme_triangle(t_polygone *polygone)
 {
 
     float max;
     max = 0;
 
-    if (polygone->size == 3)
-    {
-       max = max_segments(polygone);
-        if( pi2mi(polygone->segments, max) == 1 && type_triangle(polygone) == 1 )
-            printf("type = isocele_rectangle\n" );
-        else if (type_triangle(polygone) == 1)
-           printf("\ntype = isocele\n");
-       else if (type_triangle(polygone) == 2)
-            printf("\ntype = equilaterale\n");
-        else
-            printf("\nce type n'existe pas \n");
-        return (0);
-    }
-  return (0);
+    max = max_segments(polygone);
+    printf("Type(Triangle):");
+    if (pi2mi(polygone->segments, max) == 1 && type_triangle(polygone) == 1 )
+        printf("\tIsocele Rectangle\n");
+    else if (pi2mi(polygone->segments, max) == 1)
+        printf("\tRectangle\n" );
+    else if (type_triangle(polygone) == 1)
+       printf("\tIsocele\n");
+    else if (type_triangle(polygone) == 2)
+        printf("\tEquilaterale\n");
+    else
+        printf("\tXX \n");
+  return ("XX");
 }

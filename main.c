@@ -12,14 +12,6 @@
 
 #include "polygone.h"
 
-void		init(t_lst **p, char *title)
-{
-	if (parser(p, title, 0) == -1 && write(1, "error: parsing\n", 15))
-		exit(EXIT_FAILURE);
-//	calcul_angle(p);
-//	sort_list(p);
-}
-
 int		main(int argc, char **argv)
 {
 	int i = 0;
@@ -32,8 +24,7 @@ int		main(int argc, char **argv)
 		return (0);
 	polygone = (t_polygone *)malloc(sizeof(t_polygone));
 
-//	lst = read_file(argv[1]);
-	init(&lst, argv[1]);
+	lst = read_file(argv[1]);
 	tt = lst;
 	polygone->size = nbr_points(&lst);
 	lst = tt;
@@ -41,38 +32,62 @@ int		main(int argc, char **argv)
 	get_angle(polygone);
 	lst = tt;
 	aux = check_points(&lst, polygone);
+
+
 	tt = aux;
-	//aux = tt;
-	while(aux)
-	{
-		printf("x.%.2f\ty.%.2f\n", aux->data.x, aux->data.y);
-		aux = aux->next;
-	}
-	aux = tt;
-	while (i < polygone->size)
-	{
-		printf("seg %d = %f\n", i+1, polygone->segments[i]);
-		i++;
-	}
+	printf("\n*****Les Points:*****\n");
+	printf("Size: %d\n",polygone->size);
+		aux = tt;
 	if(polygone->size == 3)
 		polygone->type = check_forme_triangle(polygone);
-	printf("Size: %d\nPerimetre: %f\n",polygone->size, perimetre(polygone));
-	if (polygone->size == 4)
+	else if (polygone->size == 4)
 	{
-		calcul_tendon(polygone, aux);
+		calcul_tendon(polygone, aux); //tendon!!!
 		polygone->type = check_forme_quadrilatere(polygone);
-		printf("type: %c\n", polygone->type);
+		printf("Type: (Quadrilatere)\t%s\n", polygone->type);
 	}
-	printf("Surface: %f\n", surface(polygone));
-	printf("regulier? %d\n", check_regulier(polygone));
-	i = 0;
-	while(i < polygone->size)
+	else
+		printf("Type:\tXX\n");
+	printf("\n");
+	while(aux)
 	{
-		printf("angle %d : %f\n", i + 1, (polygone->angles[i] * 180) / PI);
+		printf("%c (x.%.2f; y.%.2f)\n",aux->name, aux->data.x, aux->data.y);
 		aux = aux->next;
+	}
+	aux = tt;
+	printf("\n*****Les Segements(cotes):*****\n");
+	while (i < polygone->size)
+	{
+		if (i == polygone->size - 1)
+				printf("%c%c = %f\n", aux->name, tt->name , polygone->segments[i]);
+		else
+		{
+			printf("%c%c = %f\n", aux->name, aux->name + 1, polygone->segments[i]);
+			aux = aux->next;
+		}
 		i++;
 	}
 	aux = tt;
+	i = 0;
+	printf("\n*****Les Angles:*****\n");
+	while(i < polygone->size)
+	{
+		if (i == polygone->size - 1)
+			printf(" %c = %.2f\n", tt->name, (polygone->angles[i] * 180) / PI);
+		else
+		{
+			printf(" %c = %.2f\n", aux->name + 1, (polygone->angles[i] * 180) / PI);
+			aux = aux->next;
+		}
+		i++;
+	}
+	aux = tt;
+	printf("\n*****Les Caracteristiques::*****\n");
+	printf("\nPerimetre:\t%.2f\n", perimetre(polygone));
+	printf("Surface:\t%.2f\n", surface(polygone));
+	printf("Regulier?\t%d\n", check_regulier(polygone));
+
+	printf("\n******************************\n\n");
 	return (0);
 
 }

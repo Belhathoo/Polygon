@@ -43,12 +43,14 @@ void    ft_alloc(t_lst **l, t_lst **curr, t_lst **tt)
 	{
 		(*l) = create_args();
 		(*l)->data = (*curr)->data;
+		(*l)->name = (*curr)->name;
         (*tt) = (*l);
 	}
     else 
     {
 		(*l)->next = create_args();
 		(*l)->next->data = (*curr)->data;
+		(*l)->next->name = (*curr)->name;
 		(*l) = (*l)->next;
 	}
 }
@@ -69,11 +71,13 @@ t_lst         *check_points(t_lst **lst, t_polygone *polygone)
     lista = NULL;
     
     curr = create_args();
+	curr->name = '0';
 	if((int)(polygone->angles[polygone->size - 1] * 180/PI) == 180)
 		l = l->next;
 	else
 	{
 		curr->data = l->data;
+		curr->name = 'A';
 		ft_alloc(&lista, &curr, &tete);
 		l = l->next;
 	}
@@ -86,6 +90,10 @@ t_lst         *check_points(t_lst **lst, t_polygone *polygone)
 		}
 		else
         {
+			if(curr->name == '0')
+				curr->name = 'A';
+			else
+				curr->name = curr->name + 1;
 			curr->data = l->data;
 			ft_alloc(&lista, &curr, &tete);
 			l = l->next;

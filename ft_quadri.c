@@ -19,7 +19,7 @@ t_point     *ft_points(int size, t_lst *l)
 }
 
 
-char   check_forme_quadrilatere(t_polygone *polygone)
+char   *check_forme_quadrilatere(t_polygone *polygone)
 {
 	t_point *pnts;
 	float ps;
@@ -27,10 +27,11 @@ char   check_forme_quadrilatere(t_polygone *polygone)
 	float ps_td;
 
 	pnts = polygone->pnts;
-	ps = abs(produit_scalaire(pnts[0], pnts[1], pnts[2], pnts[3]));
+	ps = abs(produit_scalaire(pnts[0], pnts[1], pnts[2], pnts[3])); // Les cotes face a face
 	ps1 = abs(produit_scalaire(pnts[1], pnts[2], pnts[0], pnts[3]));
-	ps_td = abs(produit_scalaire(pnts[0], pnts[2], pnts[1], pnts[3]));
+	ps_td = abs(produit_scalaire(pnts[0], pnts[2], pnts[1], pnts[3])); // Les tendons
 
+	
 	if ((ps == polygone->segments[0] * polygone->segments[2])
 			&& (ps1 == polygone->segments[1] * polygone->segments[3]))
 	{
@@ -40,21 +41,21 @@ char   check_forme_quadrilatere(t_polygone *polygone)
 			if (ps_td == 0)
 			{    
 				if(polygone->tendon[0] == polygone->tendon[1])
-					return('c'); 
+					return("Carre."); 
 				else
-					return ('l');
+					return ("Losange.");
 			}
 			else if (polygone->tendon[0] == polygone->tendon[1])
-				return ('r');
+				return ("Rectangle.");
 			else
-				return('p');
+				return("Parallélogramme.");
 		}
 		else
-			return ('x');
+			return ("XX");
 	}
 	else if ((ps == polygone->segments[0] * polygone->segments[2])
 			|| (ps1 == polygone->segments[1] * polygone->segments[3]))
-		return ('t');
+		return ("Trapeze.");
 	else
-		return ('x');
+		return ("XX");
 }
